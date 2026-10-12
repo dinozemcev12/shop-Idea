@@ -1,66 +1,428 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 body {
     background-color: #80DDFF;
     margin: 0;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
-button {
-    background-color: transparent;
-    border: none;
-    color: #FFFFFF;
-    font-family: var(--font-family);
-    font-weight: 200;
-    font-style: italic;
-    font-size: 36px;
-    text-align: center;
-}
+
 header {
     background-color: #00A6E3;
     color: #FFFFFF;
 }
+
 .na {
     flex-direction: row;
     display: flex;
     justify-content: space-around;
     padding: 10px;
+    align-items: center;
 }
-button:nth-child(3) {
+
+.tab-btn {
+    background-color: transparent;
+    border: none;
+    color: #FFFFFF;
+    font-weight: 200;
+    font-style: italic;
+    font-size: 28px;
+    cursor: pointer;
+    transition: 0.2s;
+    text-decoration: none;
+}
+
+/* Стиль для вибраної вкладки */
+.tab-btn.active {
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+}
+
+.logo-btn {
     font-weight: 400;
+    font-size: 36px;
+    cursor: default;
+    text-decoration: none !important;
 }
-footer{
-    
+
+/* Кнопка кошика в шапці */
+.cart-btn {
+    background-color: #0082b4;
+    border-radius: 8px;
+    padding: 5px 15px;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.cart-btn:hover {
+    background-color: #006b96;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 36px;
+    text-align: center;
+    color: #FFFFFF;
+    margin-bottom: 25px;
+}
+
+/* Сітка для товарів */
+.tovars {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    justify-content: center;
+}
+
+/* Картка товару */
+.tovarex {
+    background: #00A6E3;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.tovarex:hover {
+    transform: translateY(-5px);
+}
+
+/* Біла підложка для картинки */
+.img-container {
+    background: #FFFFFF;
+    border-radius: 16px;
+    width: 100%;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.imgex {
+    width: 90%;
+    height: 150px;
+    object-fit: contain;
+}
+
+.tovar-info {
+    text-align: left;
+    width: 100%;
+}
+
+.nameex {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 26px;
+    color: #FFFFFF;
+    margin: 0 0 5px 0;
+}
+
+.sellex {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 26px;
+    color: #FFFFFF;
+    margin: 0 0 15px 0;
+}
+
+/* Кнопка "Купити" всередині картки */
+.buy-btn {
+    background-color: #FFFFFF;
+    color: #00A6E3;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    font-style: normal;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.buy-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.buy-btn:active {
+    transform: scale(0.98);
+}
+
+/* Модальне вікно кошика */
+.cart-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.cart-content {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.cart-content h2 {
+    color: #333;
+    margin-top: 0;
+    text-align: center;
+}
+
+.close-cart {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: #888;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-style: normal;
+}
+
+.close-cart:hover {
+    color: #333;
+}
+
+.cart-items-list {
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+
+.cart-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-item-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.cart-item-price {
+    font-size: 14px;
+    color: #00A6E3;
+    font-weight: 700;
+}
+
+.remove-btn {
+    background-color: #ff5252;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-style: normal;
+}
+
+.remove-btn:hover {
+    background-color: #ff1744;
+}
+
+.cart-total {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.checkout-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    font-style: normal;
+}
+
+.checkout-btn:hover {
+    background-color: #45a049;
+}
+
+/* Модальне вікно характеристик товару */
+.product-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.product-modal-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 550px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close-product-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 32px;
+    color: #888;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-style: normal;
+}
+
+.close-product-modal:hover {
+    color: #333;
+}
+
+.modal-img-container {
+    background: #f4f4f4;
+    border-radius: 15px;
+    width: 100%;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.modal-img {
+    max-width: 90%;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+.modal-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+.modal-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #00A6E3;
+    margin-bottom: 15px;
+}
+
+.modal-specs {
+    width: 100%;
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.modal-specs h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.modal-specs ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #555;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.modal-buy-btn {
+    background-color: #00A6E3;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+.modal-buy-btn:hover {
+    background-color: #0082b4;
+}
+
+footer {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     background-color: #00A6E3;
-    padding: 10;
+    padding: 15px 10px;
+    margin-top: auto;
 }
 
-a{
-    padding: 10px;
-    width: 50px;
-}
-p{
-    font-family: var(--font-family);
-font-weight: 400;
-font-style: italic;
-font-size: 36px;
-color: #fff;
+footer p {
+    font-weight: 400;
+    font-style: italic;
+    font-size: 16px;
+    color: #fff;
+    margin: 0;
 }
 
-h1{
-font-family: var(--font-family);
-font-weight: 700;
-font-size: 40px;
-text-align: center;
-color: #FFFFFF;
+footer div img {
+    width: 30px;
+    height: 30px;
 }
-p:nth-child(3){
-    font-family: var(--font-family);
-font-weight: 400;
-font-style: italic;
-font-size: 14px;
-text-align: right;
-color: #fff;
+
+a {
+    padding: 5px;
+    display: inline-block;
 }

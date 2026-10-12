@@ -1,31 +1,65 @@
 <html>
     <head>
-        <head><title>Магазин іДЕЯ</title></head>
+        <title>Магазин іДЕЯ</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <header>
             <div class="na">
-            <button>Головна</button>
-            <button>Ноутбуки</button>
-            <button><i>і</i>ДЕЯ</button>
-            <button>Телефони</button>
-            <button>Планшети</button>
+                <button class="tab-btn active" onclick="switchTab('home', this)">Головна</button>
+                <button class="tab-btn" onclick="switchTab('laptops', this)">Ноутбуки</button>
+                <button class="tab-btn logo-btn"><i>і</i>ДЕЯ</button>
+                <button class="tab-btn" onclick="switchTab('phones', this)">Телефони</button>
+                <button class="tab-btn" onclick="switchTab('tablets', this)">Планшети</button>
+                <button class="tab-btn cart-btn" onclick="openCart()">🛒 Кошик (<span id="cart-count">0</span>)</button>
             </div>
         </header>
 
         <main>
-            <h1>ПОПУЛЯРНІ ТОВАРИ:</h1>
+            <h1 id="page-title">ПОПУЛЯРНІ ТОВАРИ</h1>
+            <div class="tovars" id="tovars-container">
+            </div>
         </main>
+
+        <div class="cart-modal" id="cartModal">
+            <div class="cart-content">
+                <button class="close-cart" onclick="closeCart()">&times;</button>
+                <h2>Ваш кошик</h2>
+                <div class="cart-items-list" id="cartItemsList">
+                    <p style="text-align: center; color: #777;">Кошик порожній</p>
+                </div>
+                <div class="cart-total" id="cartTotal">Загалом: 0₴</div>
+                <button class="checkout-btn" onclick="checkout()">Оформити замовлення</button>
+            </div>
+        </div>
+
+        <div class="product-modal" id="productModal">
+            <div class="product-modal-content">
+                <button class="close-product-modal" onclick="closeProductModal()">&times;</button>
+                <div class="modal-img-container">
+                    <img class="modal-img" id="modalImg" src="" alt="">
+                </div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-price" id="modalPrice"></div>
+                <div class="modal-specs">
+                    <h3>Характеристики:</h3>
+                    <ul id="modalSpecsList">
+                    </ul>
+                </div>
+                <button class="modal-buy-btn" id="modalBuyBtn">Купити</button>
+            </div>
+        </div>
 
         <footer>
             <p><i>і</i>ДЕЯ</p>
             <div>
-            <a href="#"><img src="youtube.png"></a>
-            <a href="#"><img src="tiktok.png"></a>
-            <a href="#"><img src="telegram.png"></a>
+                <a href="#"><img src="youtube.png" alt="YouTube"></a>
+                <a href="#"><img src="tiktok.png" alt="TikTok"></a>
+                <a href="#"><img src="telegram.png" alt="Telegram"></a>
             </div>
-            <p>Всі права захищені компаніею <i>і</i>ДЕЯ.com </p>
+            <p>Всі права захищені компанією <i>і</i>ДЕЯ.com</p>
         </footer>
+        
+        <script src="script.js"></script>
     </body>
 </html>

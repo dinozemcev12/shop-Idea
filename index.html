@@ -8,7 +8,7 @@
             <div class="na">
                 <button class="tab-btn active" onclick="switchTab('home', this)">Головна</button>
                 <button class="tab-btn" onclick="switchTab('laptops', this)">Ноутбуки</button>
-                <button class="tab-btn logo-btn"><i>і</i>ДЕЯ</button>
+                <button class="tab-btn logo-btn" onclick="openAboutModal()"><i>і</i>ДЕЯ</button>
                 <button class="tab-btn" onclick="switchTab('phones', this)">Телефони</button>
                 <button class="tab-btn" onclick="switchTab('tablets', this)">Планшети</button>
                 <button class="tab-btn cart-btn" onclick="openCart()">🛒 Кошик (<span id="cart-count">0</span>)</button>
@@ -47,6 +47,17 @@
                     </ul>
                 </div>
                 <button class="modal-buy-btn" id="modalBuyBtn">Купити</button>
+            </div>
+        </div>
+
+        <div class="product-modal" id="aboutModal">
+            <div class="product-modal-content" style="text-align: center;">
+                <button class="close-product-modal" onclick="closeAboutModal()">&times;</button>
+                <h2 class="modal-title" style="margin-bottom: 20px;">Про компанію <i>і</i>ДЕЯ</h2>
+                <p style="font-size: 18px; color: #444; line-height: 1.6; margin-bottom: 20px;">
+                    <strong>іДЕЯ</strong> — це українська компанія, яка прагне забезпечити клієнтів найкращими сучасними ґаджетами та технологіями. Ми підтримуємо українське та дбаємо про високу якість обслуговування кожного покупця!
+                </p>
+                <button class="modal-buy-btn" onclick="closeAboutModal()">Зрозуміло</button>
             </div>
         </div>
 

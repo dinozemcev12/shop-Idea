@@ -30,11 +30,14 @@ header {
     font-style: italic;
     font-size: 28px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: all 0.3s ease;
     text-decoration: none;
 }
 
-/* Стиль для вибраної вкладки */
+.tab-btn:hover {
+    opacity: 0.8;
+}
+
 .tab-btn.active {
     font-weight: 700;
     text-decoration: underline;
@@ -48,7 +51,6 @@ header {
     text-decoration: none !important;
 }
 
-/* Кнопка кошика в шапці */
 .cart-btn {
     background-color: #0082b4;
     border-radius: 8px;
@@ -56,10 +58,12 @@ header {
     font-size: 22px;
     font-style: normal;
     font-weight: 600;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .cart-btn:hover {
     background-color: #006b96;
+    transform: scale(1.05);
 }
 
 main {
@@ -79,7 +83,6 @@ h1 {
     margin-bottom: 25px;
 }
 
-/* Сітка для товарів */
 .tovars {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -87,7 +90,6 @@ h1 {
     justify-content: center;
 }
 
-/* Картка товару */
 .tovarex {
     background: #00A6E3;
     border-radius: 20px;
@@ -97,14 +99,14 @@ h1 {
     align-items: flex-start;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
 }
 
 .tovarex:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Біла підложка для картинки */
 .img-container {
     background: #FFFFFF;
     border-radius: 16px;
@@ -121,6 +123,11 @@ h1 {
     width: 90%;
     height: 150px;
     object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.tovarex:hover .imgex {
+    transform: scale(1.08);
 }
 
 .tovar-info {
@@ -144,7 +151,6 @@ h1 {
     margin: 0 0 15px 0;
 }
 
-/* Кнопка "Купити" всередині картки */
 .buy-btn {
     background-color: #FFFFFF;
     color: #00A6E3;
@@ -164,55 +170,68 @@ h1 {
 }
 
 .buy-btn:active {
-    transform: scale(0.98);
+    transform: scale(0.96);
 }
 
-/* Модальне вікно кошика */
-.cart-modal {
-    display: none;
+.cart-modal, .product-modal {
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0);
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    visibility: hidden;
+    pointer-events: none;
+    transition: background-color 0.3s ease, visibility 0.3s ease;
 }
 
-.cart-content {
+.cart-modal.active, .product-modal.active {
+    background-color: rgba(0, 0, 0, 0.6);
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.cart-content, .product-modal-content {
     background: #ffffff;
-    padding: 25px;
-    border-radius: 15px;
+    padding: 30px;
+    border-radius: 20px;
     width: 90%;
     max-width: 500px;
     max-height: 80vh;
     overflow-y: auto;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     position: relative;
+    transform: scale(0.7);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
 }
 
-.cart-content h2 {
-    color: #333;
-    margin-top: 0;
-    text-align: center;
+.cart-modal.active .cart-content, 
+.product-modal.active .product-modal-content {
+    transform: scale(1);
+    opacity: 1;
 }
 
-.close-cart {
+.close-cart, .close-product-modal {
     position: absolute;
     top: 15px;
     right: 20px;
-    font-size: 28px;
+    font-size: 32px;
     color: #888;
     cursor: pointer;
     background: none;
     border: none;
     font-style: normal;
+    transition: color 0.2s, transform 0.2s;
 }
 
-.close-cart:hover {
+.close-cart:hover, .close-product-modal:hover {
     color: #333;
+    transform: scale(1.1);
 }
 
 .cart-items-list {
@@ -253,10 +272,12 @@ h1 {
     cursor: pointer;
     font-size: 14px;
     font-style: normal;
+    transition: background 0.2s, transform 0.1s;
 }
 
 .remove-btn:hover {
     background-color: #ff1744;
+    transform: scale(1.05);
 }
 
 .cart-total {
@@ -278,53 +299,12 @@ h1 {
     font-weight: bold;
     cursor: pointer;
     font-style: normal;
+    transition: background 0.2s, transform 0.1s;
 }
 
 .checkout-btn:hover {
     background-color: #45a049;
-}
-
-/* Модальне вікно характеристик товару */
-.product-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.product-modal-content {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 550px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.close-product-modal {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 32px;
-    color: #888;
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-style: normal;
-}
-
-.close-product-modal:hover {
-    color: #333;
+    transform: scale(1.02);
 }
 
 .modal-img-container {
@@ -393,11 +373,12 @@ h1 {
     font-weight: 700;
     cursor: pointer;
     width: 100%;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.1s;
 }
 
 .modal-buy-btn:hover {
     background-color: #0082b4;
+    transform: scale(1.02);
 }
 
 footer {
@@ -420,6 +401,11 @@ footer p {
 footer div img {
     width: 30px;
     height: 30px;
+    transition: transform 0.2s;
+}
+
+footer div img:hover {
+    transform: scale(1.2);
 }
 
 a {
